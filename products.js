@@ -13,11 +13,13 @@
                 (falls back to defaultMoq below). Orders are rounded up
                 to whole packs, so the real minimum is the first pack
                 count that reaches the MOQ.
-  - image:      path to the model shot, e.g. "images/raw-denim-jacket.jpg"
-                Use portrait shots (3:4 or 4:5) on a light grey
-                backdrop to match the look. Leave "" to show a placeholder.
-  - images:     optional extra shots, one per colourway, keyed by colour name
-                e.g. { "Washed Black": "images/raw-denim-jacket-black.jpg" }
+  - photos:     at least 3 model shots per SKU, e.g. front, back, detail.
+                The first one is the cover in the grid; the second shows on hover.
+                Use portrait shots (3:4 or 4:5) on a light grey backdrop.
+                Leave [] to show a placeholder.
+  - colorPhotos: optional shots per colourway, keyed by colour name, used
+                instead of `photos` when that colour is selected
+                e.g. { "Washed Black": ["images/rdj-black-1.jpg", ...] }
 */
 
 window.CATALOGUE_CONFIG = {
@@ -40,7 +42,11 @@ window.PRODUCTS = [
     sizes: ["S", "M", "L", "XL"],
     ratio: [1, 2, 2, 1],
     moq: 12,
-    image: "images/raw-denim-jacket.jpg",
+    photos: [
+      "images/raw-denim-jacket.jpg",
+      "images/raw-denim-jacket-back.jpg",
+      "images/raw-denim-jacket-detail.jpg",
+    ],
   },
   {
     id: "rhinestone-denim",
@@ -50,7 +56,11 @@ window.PRODUCTS = [
     sizes: ["28", "30", "32", "34", "36"],
     ratio: [1, 3, 4, 3, 1],
     moq: 12,
-    image: "images/rhinestone-denim.jpg",
+    photos: [
+      "images/rhinestone-denim.jpg",
+      "images/rhinestone-denim-back.jpg",
+      "images/rhinestone-denim-detail.jpg",
+    ],
   },
   {
     id: "thermal-long-sleeve",
@@ -60,7 +70,11 @@ window.PRODUCTS = [
     sizes: ["S", "M", "L", "XL"],
     ratio: [1, 2, 2, 1],
     moq: 12,
-    image: "images/thermal-long-sleeve.jpg",
+    photos: [
+      "images/thermal-long-sleeve.jpg",
+      "images/thermal-long-sleeve-back.jpg",
+      "images/thermal-long-sleeve-detail.jpg",
+    ],
   },
   {
     id: "cropped-zip-hoodie",
@@ -70,7 +84,11 @@ window.PRODUCTS = [
     sizes: ["S", "M", "L", "XL"],
     ratio: [1, 2, 2, 1],
     moq: 12,
-    image: "images/cropped-zip-hoodie.jpg",
+    photos: [
+      "images/cropped-zip-hoodie.jpg",
+      "images/cropped-zip-hoodie-back.jpg",
+      "images/cropped-zip-hoodie-detail.jpg",
+    ],
   },
   {
     id: "workwear-jacket",
@@ -80,7 +98,11 @@ window.PRODUCTS = [
     sizes: ["S", "M", "L", "XL"],
     ratio: [1, 2, 2, 1],
     moq: 12,
-    image: "images/workwear-jacket.jpg",
+    photos: [
+      "images/workwear-jacket.jpg",
+      "images/workwear-jacket-back.jpg",
+      "images/workwear-jacket-detail.jpg",
+    ],
   },
   {
     id: "baggy-denim-pants",
@@ -90,7 +112,11 @@ window.PRODUCTS = [
     sizes: ["28", "30", "32", "34", "36"],
     ratio: [1, 3, 4, 3, 1],
     moq: 12,
-    image: "images/baggy-denim-pants.jpg",
+    photos: [
+      "images/baggy-denim-pants.jpg",
+      "images/baggy-denim-pants-back.jpg",
+      "images/baggy-denim-pants-detail.jpg",
+    ],
   },
   {
     id: "drop-shoulder-hoodie",
@@ -100,7 +126,11 @@ window.PRODUCTS = [
     sizes: ["S", "M", "L", "XL"],
     ratio: [1, 2, 2, 1],
     moq: 12,
-    image: "images/drop-shoulder-hoodie.jpg",
+    photos: [
+      "images/drop-shoulder-hoodie.jpg",
+      "images/drop-shoulder-hoodie-back.jpg",
+      "images/drop-shoulder-hoodie-detail.jpg",
+    ],
   },
   {
     id: "quarter-zip",
@@ -110,7 +140,11 @@ window.PRODUCTS = [
     sizes: ["S", "M", "L", "XL"],
     ratio: [1, 2, 2, 1],
     moq: 12,
-    image: "images/quarter-zip.jpg",
+    photos: [
+      "images/quarter-zip.jpg",
+      "images/quarter-zip-back.jpg",
+      "images/quarter-zip-detail.jpg",
+    ],
   },
   {
     id: "plaid-quarter-zip",
@@ -120,6 +154,10 @@ window.PRODUCTS = [
     sizes: ["S", "M", "L", "XL"],
     ratio: [1, 2, 2, 1],
     moq: 12,
-    image: "images/plaid-quarter-zip.jpg",
+    photos: [
+      "images/plaid-quarter-zip.jpg",
+      "images/plaid-quarter-zip-back.jpg",
+      "images/plaid-quarter-zip-detail.jpg",
+    ],
   },
 ];

@@ -27,10 +27,11 @@
     if (c.length > 5) return "available in " + c.length + " colorways";
     return "available in " + joinList(c);
   }
-  function imageFor(p, color) {
-    if (color && p.images && p.images[color]) return p.images[color];
-    return p.image || PLACEHOLDER;
+  function photosFor(p, color) {
+    var list = (color && p.colorPhotos && p.colorPhotos[color]) || p.photos || [];
+    return list.length ? list : [PLACEHOLDER];
   }
+  function imageFor(p, color) { return photosFor(p, color)[0]; }
   /* ---------- wholesale packs ---------- */
   function packSize(p) { return (p.ratio || []).reduce(function (a, b) { return a + b; }, 0) || 1; }
   function moqOf(p) { return p.moq || CONFIG.defaultMoq || 1; }
@@ -98,7 +99,11 @@
         '<article class="cell" tabindex="0" data-id="' + esc(p.id) + '" aria-label="' + esc(p.name) + ", " + esc(p.brand) + '">' +
           '<span class="tiny cell__brand">' + esc(p.brand) + "</span>" +
           '<span class="tiny cell__added" data-badge="' + esc(p.id) + '"></span>' +
-          '<div class="cell__media"><img loading="lazy" src="' + esc(imageFor(p)) + '" alt="' + esc(p.name) + ' worn by model"></div>' +
+          '<div class="cell__media">' +
+            '<img loading="lazy" src="' + esc(imageFor(p)) + '" alt="' + esc(p.name) + ' worn by model">' +
+            (photosFor(p)[1] ? '<img class="cell__alt" loading="lazy" src="' + esc(photosFor(p)[1]) + '" alt="" aria-hidden="true">' : "") +
+          "</div>" +
+          '<span class="tiny cell__count">' + photosFor(p).length + " photos</span>" +
           '<div class="cell__text">' +
             '<h3 class="name">' + esc(p.name) + "</h3>" +
             '<p class="tiny">' + esc(availability(p)) + "</p>" +
@@ -131,7 +136,7 @@
   });
 
   /* ---------- product sheet ---------- */
-  var sel = { id: null, color: null, packs: 1 };
+  var sel = { id: null, color: null, packs: 1, photo: 0 };
   var lastFocus = null;
 
   function chips(container, values, current, attr) {
@@ -149,7 +154,12 @@
   function refreshSheet() {
     var p = byId[sel.id];
     chips($("sheetColors"), p.colorways || [], sel.color, "color");
-    $("sheetImg").src = imageFor(p, sel.color);
+    var shots = photosFor(p, sel.color);
+    if (sel.photo >= shots.length) sel.photo = 0;
+    $("sheetImg").src = shots[sel.photo];
+    $("sheetThumbs").innerHTML = shots.map(function (src, i) {
+      return '<button type="button" class="thumb" data-photo="' + i + '" aria-label="Photo ' + (i + 1) + " of " + shots.length + '" aria-pressed="' + (i === sel.photo) + '"><img src="' + esc(src) + '" alt=""></button>';
+    }).join("");
     $("qtyVal").textContent = sel.packs;
     $("qtyMinus").disabled = sel.packs <= minPacks(p);
     renderRatio(p);
@@ -160,7 +170,7 @@
     var p = byId[id];
     if (!p) return;
     lastFocus = document.activeElement;
-    sel = { id: id, color: (p.colorways || [])[0] || null, packs: minPacks(p) };
+    sel = { id: id, color: (p.colorways || [])[0] || null, packs: minPacks(p), photo: 0 };
     $("sheetBrand").textContent = p.brand;
     $("sheetName").textContent = p.name;
     $("sheetAvail").textContent = availability(p);
@@ -178,6 +188,12 @@
   }
   $("sheet").addEventListener("click", function (e) {
     if (e.target.closest("[data-close]")) return closeSheet();
+    var ph = e.target.closest("[data-photo]");
+    if (ph) { sel.photo = +ph.getAttribute("data-photo"); return refreshSheet(); }
+    if (e.target.closest(".sheet__media img")) {
+      sel.photo = (sel.photo + 1) % photosFor(byId[sel.id], sel.color).length;
+      return refreshSheet();
+    }
     var c = e.target.closest("[data-color]");
     if (c) { sel.color = c.getAttribute("data-color"); return refreshSheet(); }
   });
@@ -274,6 +290,11 @@
   });
 
   document.addEventListener("keydown", function (e) {
+    if (!$("sheet").hidden && (e.key === "ArrowRight" || e.key === "ArrowLeft")) {
+      var n = photosFor(byId[sel.id], sel.color).length;
+      sel.photo = (sel.photo + (e.key === "ArrowRight" ? 1 : n - 1)) % n;
+      return refreshSheet();
+    }
     if (e.key !== "Escape") return;
     if (!$("sheet").hidden) closeSheet();
     else if (!$("drawer").hidden) closeCart();

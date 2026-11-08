@@ -11,8 +11,9 @@ Everything lives in `products.js`:
 
 1. Put model shots in `images/` — portrait (3:4 or 4:5), shot on a white or light grey backdrop.
    Images are blended onto the page so a light backdrop melts into the grey, like the reference layout.
-2. Set each product's `image` to the file path, e.g. `"images/raw-denim-jacket.jpg"`.
-3. Optional: `images: { "Washed Black": "images/raw-denim-jacket-black.jpg" }` swaps the photo per colorway.
+2. List at least 3 shots per SKU in `photos` (e.g. front, back, detail). The first is the grid cover,
+   the second shows when hovering a style, and all of them appear in the product panel.
+3. Optional: `colorPhotos: { "Washed Black": [...] }` swaps the shots when that colorway is selected.
 4. Set `brand` to `"Estivaneli"` or `"Croppsy"` — the header filter uses it.
 
 ## Wholesale ordering
