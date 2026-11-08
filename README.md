@@ -1,6 +1,6 @@
 # Estivaneli × Croppsy — Catalogue
 
-A static sales catalogue: a 3-column editorial grid (2 on tablet, 2 compact on phone),
+A static wholesale catalogue: a 3-column editorial grid (2 on tablet, 2 compact on phone),
 model shots, and a cart with no prices and no checkout.
 
 Open `index.html` in a browser, or host the folder anywhere static (GitHub Pages, Vercel, Netlify).
@@ -15,8 +15,17 @@ Everything lives in `products.js`:
 3. Optional: `images: { "Washed Black": "images/raw-denim-jacket-black.jpg" }` swaps the photo per colorway.
 4. Set `brand` to `"Estivaneli"` or `"Croppsy"` — the header filter uses it.
 
+## Wholesale ordering
+
+- Each style is sold in pre-packs: `sizes` + `ratio` in `products.js` define one pack
+  (e.g. S·M·L·XL at 1·2·2·1 = a 6-piece pack).
+- `moq` is the minimum pieces per style per colorway (default 12, set by `defaultMoq`).
+  Buyers order whole packs, starting at the first pack count that reaches the MOQ.
+- The grid shows the MOQ and ratio under each style; the product panel shows the
+  size breakdown for the chosen number of packs.
+
 ## Cart
 
-- Customers pick colorway, size and quantity, then add to cart. The cart is saved in their browser.
+- Buyers pick a colorway and number of packs, then add to cart. The cart is saved in their browser.
 - **Send request** opens an email with the full list. Set `requestEmail` in `products.js` to receive it.
 - **Copy list** copies the selection as plain text (handy for DMs / WhatsApp).

@@ -19,7 +19,7 @@
 
   <footer class="foot">
     <span id="season">Collection 01</span>
-    <span>Selections only — no prices, no checkout.</span>
+    <span>Wholesale order requests — no prices, no checkout.</span>
   </footer>
 
   <!-- Product sheet -->
@@ -37,16 +37,19 @@
           <legend class="tiny">Colorway</legend>
           <div class="chips" id="sheetColors"></div>
         </fieldset>
-        <fieldset class="opt" id="sizeOpt">
-          <legend class="tiny">Size</legend>
-          <div class="chips" id="sheetSizes"></div>
-        </fieldset>
         <div class="opt">
-          <span class="tiny">Quantity</span>
-          <div class="qty">
-            <button type="button" id="qtyMinus" aria-label="Decrease">−</button>
-            <span id="qtyVal">1</span>
-            <button type="button" id="qtyPlus" aria-label="Increase">+</button>
+          <span class="tiny">Size ratio — 1 pack</span>
+          <table class="ratio" id="sheetRatio"></table>
+        </div>
+        <div class="opt">
+          <span class="tiny">Packs</span>
+          <div class="packrow">
+            <div class="qty">
+              <button type="button" id="qtyMinus" aria-label="One pack fewer">−</button>
+              <span id="qtyVal">1</span>
+              <button type="button" id="qtyPlus" aria-label="One pack more">+</button>
+            </div>
+            <p class="packsum" id="packSum"></p>
           </div>
         </div>
         <button class="btn" id="sheetAdd" type="button">Add to cart</button>
@@ -66,7 +69,7 @@
       <ul class="lines" id="cartLines"></ul>
       <p class="empty tiny" id="cartEmpty">Your cart is empty.</p>
       <div class="drawer__foot" id="cartFoot">
-        <p class="tiny"><span id="cartTotal">0</span> pieces selected</p>
+        <p class="tiny"><span id="cartTotal">0</span></p>
         <button class="btn btn--ghost" id="cartRequest" type="button">Send request</button>
         <button class="btn" id="cartCopy" type="button">Copy list</button>
         <textarea class="listtext" id="cartText" rows="6" readonly hidden aria-label="Cart as text"></textarea>
