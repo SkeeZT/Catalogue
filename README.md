@@ -9,7 +9,7 @@ Open `index.html` in a browser, or host the folder anywhere static (GitHub Pages
 
 Everything lives in `products.js`:
 
-1. Put model shots in `images/` — portrait (4:5), shot on a white or light grey backdrop.
+1. Put model shots in `images/` — portrait (3:4 or 4:5), shot on a white or light grey backdrop.
    Images are blended onto the page so a light backdrop melts into the grey, like the reference layout.
 2. Set each product's `image` to the file path, e.g. `"images/raw-denim-jacket.jpg"`.
 3. Optional: `images: { "Washed Black": "images/raw-denim-jacket-black.jpg" }` swaps the photo per colorway.
