@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice">
+  <rect width="400" height="500" fill="#ffffff"/>
+  <g fill="#e2e2e2">
+    <circle cx="200" cy="118" r="34"/>
+    <path d="M200 160c-46 0-74 18-82 56l-16 120c-2 14 18 18 22 4l18-92 6 252h40l12-170 12 170h40l6-252 18 92c4 14 24 10 22-4l-16-120c-8-38-36-56-82-56z"/>
+  </g>
+  <text x="200" y="486" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="10" letter-spacing="1.5" fill="#c4c4c4">MODEL SHOT</text>
+</svg>

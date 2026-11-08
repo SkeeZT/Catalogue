@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Estivaneli × Croppsy — Catalogue</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="bar">
+    <a class="bar__title" href="#" id="siteTitle">Estivaneli × Croppsy</a>
+    <nav class="bar__filters" id="filters" aria-label="Filter by brand"></nav>
+    <button class="bar__cart" id="cartOpen" type="button">Cart (<span id="cartCount">0</span>)</button>
+  </header>
+
+  <main>
+    <section class="grid" id="grid" aria-label="Products"></section>
+  </main>
+
+  <footer class="foot">
+    <span id="season">Collection 01</span>
+    <span>Selections only — no prices, no checkout.</span>
+  </footer>
+
+  <!-- Product sheet -->
+  <div class="sheet" id="sheet" hidden>
+    <div class="sheet__backdrop" data-close></div>
+    <div class="sheet__panel" role="dialog" aria-modal="true" aria-labelledby="sheetName">
+      <button class="x" type="button" data-close aria-label="Close">Close</button>
+      <div class="sheet__media"><img id="sheetImg" alt=""></div>
+      <div class="sheet__body">
+        <p class="tiny" id="sheetBrand"></p>
+        <h2 class="name" id="sheetName"></h2>
+        <p class="tiny" id="sheetAvail"></p>
+
+        <fieldset class="opt" id="colorOpt">
+          <legend class="tiny">Colorway</legend>
+          <div class="chips" id="sheetColors"></div>
+        </fieldset>
+        <fieldset class="opt" id="sizeOpt">
+          <legend class="tiny">Size</legend>
+          <div class="chips" id="sheetSizes"></div>
+        </fieldset>
+        <div class="opt">
+          <span class="tiny">Quantity</span>
+          <div class="qty">
+            <button type="button" id="qtyMinus" aria-label="Decrease">−</button>
+            <span id="qtyVal">1</span>
+            <button type="button" id="qtyPlus" aria-label="Increase">+</button>
+          </div>
+        </div>
+        <button class="btn" id="sheetAdd" type="button">Add to cart</button>
+        <p class="tiny hint" id="sheetHint" aria-live="polite"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cart drawer -->
+  <aside class="drawer" id="drawer" hidden>
+    <div class="drawer__backdrop" data-close-cart></div>
+    <div class="drawer__panel" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+      <div class="drawer__head">
+        <h2 class="name" id="cartTitle">Cart</h2>
+        <button class="x" type="button" data-close-cart>Close</button>
+      </div>
+      <ul class="lines" id="cartLines"></ul>
+      <p class="empty tiny" id="cartEmpty">Your cart is empty.</p>
+      <div class="drawer__foot" id="cartFoot">
+        <p class="tiny"><span id="cartTotal">0</span> pieces selected</p>
+        <button class="btn" id="cartRequest" type="button">Send request</button>
+        <button class="btn btn--ghost" id="cartCopy" type="button">Copy list</button>
+        <button class="link tiny" id="cartClear" type="button">Clear cart</button>
+      </div>
+    </div>
+  </aside>
+
+  <script src="products.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
