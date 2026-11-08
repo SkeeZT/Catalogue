@@ -62,6 +62,8 @@
   /* ---------- header + filters ---------- */
   if (CONFIG.title) { $("siteTitle").textContent = CONFIG.title; }
   if (CONFIG.season) { $("season").textContent = CONFIG.season; }
+  // "Send request" emails the cart; only shown when an address is configured.
+  $("cartRequest").hidden = !CONFIG.requestEmail;
 
   var activeBrand = "All";
   function renderFilters() {
@@ -186,6 +188,7 @@
     $("cartEmpty").hidden = !empty;
     $("cartFoot").hidden = empty;
     $("cartTotal").textContent = totalPieces();
+    $("cartText").hidden = true;
     $("cartLines").innerHTML = cart.map(function (l, i) {
       var p = byId[l.id];
       var meta = [l.color, l.size && "Size " + l.size].filter(Boolean).join(" · ");
@@ -224,20 +227,38 @@
   function cartSummary() {
     return (CONFIG.title || "Catalogue") + " — cart request\n\n" + cart.map(lineText).join("\n") + "\n\nTotal pieces: " + totalPieces();
   }
+  function showListText(text) {
+    var box = $("cartText");
+    box.value = text;
+    box.hidden = false;
+    box.focus();
+    box.select();
+    toast("Select all and copy the list");
+  }
   $("cartCopy").addEventListener("click", function () {
     var text = cartSummary();
-    var done = function () { toast("Cart copied"); };
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(done, function () { window.prompt("Copy your cart:", text); });
-    } else { window.prompt("Copy your cart:", text); }
+      navigator.clipboard.writeText(text).then(function () { toast("Cart copied"); }, function () { showListText(text); });
+    } else { showListText(text); }
   });
   $("cartRequest").addEventListener("click", function () {
     var subject = encodeURIComponent((CONFIG.title || "Catalogue") + " — cart request");
     var body = encodeURIComponent(cartSummary());
     window.location.href = "mailto:" + (CONFIG.requestEmail || "") + "?subject=" + subject + "&body=" + body;
   });
+  var clearArmed = false;
   $("cartClear").addEventListener("click", function () {
-    if (window.confirm("Remove everything from your cart?")) { cart = []; save(); }
+    var btn = $("cartClear");
+    if (!clearArmed) {
+      clearArmed = true;
+      btn.textContent = "Tap again to clear";
+      setTimeout(function () { clearArmed = false; btn.textContent = "Clear cart"; }, 3000);
+      return;
+    }
+    clearArmed = false;
+    btn.textContent = "Clear cart";
+    cart = [];
+    save();
   });
 
   document.addEventListener("keydown", function (e) {
